@@ -79,7 +79,8 @@ export function Hero() {
 
         <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center mb-12">
           <a
-            href="#"
+            href={portfolioData.personal.resumeUrl}
+            download
             className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all transform hover:scale-105"
           >
             <FileText size={20} />
