@@ -167,7 +167,7 @@ export const portfolioData = {
     "Strong SDLC foundation with Git, Docker, CI/CD, Linux, and Agile practices aligned with IBM DevOps methodology",
   ],
   stats: {
-    projectsCompleted: 6,
+    projectsCompleted: 4,
     yearsExperience: 1,
     internships: 2,
     certifications: 4,
