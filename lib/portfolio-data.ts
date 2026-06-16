@@ -159,6 +159,7 @@ export const portfolioData = {
     "AI Fluency – Anthropic",
     "McKinsey Forward Program",
     "Linux & DevOps Certification",
+    "Tata Data Visualization",
   ],
   achievements: [
     "Completed Google GenAI Exchange Program (2025) — Vertex AI, Gemini, Imagen",
