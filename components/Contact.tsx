@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Code2, Briefcase } from "lucide-react";
 import { portfolioData } from "@/lib/portfolio-data";
@@ -23,6 +24,8 @@ export function Contact() {
       transition: { duration: 0.5 },
     },
   };
+
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const contactMethods = [
     {
@@ -154,11 +157,72 @@ export function Contact() {
         </motion.div>
 
         <motion.div
+          className="max-w-2xl mx-auto mt-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const form = e.currentTarget as HTMLFormElement;
+              const formData = new FormData(form);
+              const payload = {
+                name: String(formData.get("name") || ""),
+                email: String(formData.get("email") || ""),
+                message: String(formData.get("message") || ""),
+              };
+
+              setStatus("loading");
+              try {
+                const res = await fetch("/api/contact", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(payload),
+                });
+                if (res.ok) {
+                  setStatus("success");
+                  form.reset();
+                } else {
+                  setStatus("error");
+                }
+              } catch (err) {
+                console.error(err);
+                setStatus("error");
+              }
+            }}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md"
+          >
+            <h3 className="text-2xl font-semibold text-white mb-4 text-center">Send a message</h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input name="name" placeholder="Your name" required className="p-3 rounded-md bg-white/5 border border-white/10 text-white placeholder-gray-400" />
+              <input name="email" type="email" placeholder="Your email" required className="p-3 rounded-md bg-white/5 border border-white/10 text-white placeholder-gray-400" />
+            </div>
+
+            <textarea name="message" placeholder="Your message" required rows={5} className="w-full mt-4 p-3 rounded-md bg-white/5 border border-white/10 text-white placeholder-gray-400"></textarea>
+
+            <div className="mt-4 flex items-center justify-between">
+              <button type="submit" className="px-5 py-2 rounded-md bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium">
+                Send
+              </button>
+
+              <div className="text-sm text-gray-300">
+                {status === "idle" && "Ready to send"}
+                {status === "loading" && "Sending..."}
+                {status === "success" && "Message sent — thank you!"}
+                {status === "error" && "Failed to send. Try again later."}
+              </div>
+            </div>
+          </form>
+        </motion.div>
+
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="text-center mt-16"
+          className="text-center mt-10"
         >
           <p className="text-gray-400 text-sm">
             © 2025 Ganesh Sonawane. All rights reserved.
