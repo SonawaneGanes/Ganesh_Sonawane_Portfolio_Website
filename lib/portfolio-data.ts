@@ -7,7 +7,7 @@ export const portfolioData = {
     location: "Pune, Maharashtra",
     linkedin: "https://linkedin.com/in/ganesh-sonawane-993a63379",
     github: "https://github.com/SonawaneGanes",
-    resumeUrl: "https://raw.githubusercontent.com/SonawaneGanes/Ganesh_Sonawane_Portfolio_Website/main/Resume/Ganesh_Sonawane_Resume.pdf",
+    resumeUrl: "/Ganesh_Sonawane_Resume.pdf",
   },
   about:
     "B.Tech Computer Engineering graduate (CGPA: 8.34/10, Batch 2025) specializing in backend development, AI/ML integration, and enterprise application architecture. Proficient in Java, Python, and full SDLC. Experienced in building scalable REST APIs, microservices, and AI-powered applications with strong DevOps foundation using Docker, CI/CD, and Git.",
@@ -170,6 +170,6 @@ export const portfolioData = {
     projectsCompleted: 4,
     yearsExperience: 1,
     internships: 2,
-    certifications: 4,
+    certifications: 5,
   },
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, FileText, Download, Briefcase } from "lucide-react";
+import { ArrowDown, FileText, Code2, Briefcase } from "lucide-react";
 import { useEffect, useState } from "react";
 import { portfolioData } from "@/lib/portfolio-data";
 
@@ -80,7 +80,7 @@ export function Hero() {
         <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center mb-12">
           <a
             href={portfolioData.personal.resumeUrl}
-            download
+            download="Ganesh_Sonawane_Resume.pdf"
             className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all transform hover:scale-105"
           >
             <FileText size={20} />
@@ -101,7 +101,7 @@ export function Hero() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 border border-gray-600 text-gray-300 rounded-lg font-semibold hover:bg-gray-700/50 transition-all transform hover:scale-105"
           >
-            <Download size={20} />
+            <Code2 size={20} />
             GitHub
           </a>
         </motion.div>

@@ -8,13 +8,16 @@ __v0_jsx-dev-runtime.ts
 
 # Environment variables
 .env*.local
+.env
 
-# Common ignores
-node_modules
+# Dependencies & Build Outputs
+node_modules/
 .next/
+out/
 .DS_Store
 
 # Lock files (we use npm only)
 pnpm-lock.yaml
 bun.lock
 bun.lockb
+yarn.lock

@@ -65,8 +65,8 @@ export function About() {
             variants={itemVariants}
           >
             <div className="backdrop-blur-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-400/30 rounded-2xl p-6 hover:border-blue-400/50 transition-all">
-              <p className="text-3xl font-bold text-blue-400 mb-2">6.81</p>
-              <p className="text-gray-300 text-sm">CGPA</p>
+              <p className="text-3xl font-bold text-blue-400 mb-2">8.34</p>
+              <p className="text-gray-300 text-sm">CGPA (B.Tech)</p>
             </div>
             <div className="backdrop-blur-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-400/30 rounded-2xl p-6 hover:border-purple-400/50 transition-all">
               <p className="text-3xl font-bold text-purple-400 mb-2">2025</p>

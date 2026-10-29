@@ -8,37 +8,37 @@ const skillCategories = [
     name: "Languages",
     skills: portfolioData.skills.languages,
     color: "from-blue-500 to-cyan-500",
-    borderColor: "border-blue-500/50",
+    borderColor: "border-blue-500/30",
   },
   {
     name: "Backend",
     skills: portfolioData.skills.backend,
     color: "from-purple-500 to-pink-500",
-    borderColor: "border-purple-500/50",
+    borderColor: "border-purple-500/30",
   },
   {
     name: "Databases",
     skills: portfolioData.skills.databases,
     color: "from-green-500 to-emerald-500",
-    borderColor: "border-green-500/50",
+    borderColor: "border-green-500/30",
   },
   {
     name: "DevOps & Tools",
     skills: portfolioData.skills.devops,
     color: "from-orange-500 to-red-500",
-    borderColor: "border-orange-500/50",
+    borderColor: "border-orange-500/30",
   },
   {
     name: "AI & ML",
     skills: portfolioData.skills.ai_ml,
     color: "from-indigo-500 to-purple-500",
-    borderColor: "border-indigo-500/50",
+    borderColor: "border-indigo-500/30",
   },
   {
     name: "Core CS",
     skills: portfolioData.skills.coreCS,
     color: "from-cyan-500 to-blue-500",
-    borderColor: "border-cyan-500/50",
+    borderColor: "border-cyan-500/30",
   },
 ];
 
@@ -84,9 +84,9 @@ export function Skills() {
           {skillCategories.map((category, idx) => (
             <motion.div
               key={idx}
-              className={`backdrop-blur-xl bg-gradient-to-br ${category.color}/10 border ${category.borderColor} rounded-2xl p-8 hover:border-opacity-100 transition-all group`}
+              className={`backdrop-blur-xl bg-white/5 border ${category.borderColor} rounded-2xl p-8 hover:border-white/40 transition-all group`}
               variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.03 }}
             >
               <h3 className={`text-2xl font-bold mb-6 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
                 {category.name}
@@ -95,8 +95,8 @@ export function Skills() {
                 {category.skills.map((skill, skillIdx) => (
                   <motion.span
                     key={skillIdx}
-                    className={`px-4 py-2 rounded-lg bg-white/10 border ${category.borderColor} text-gray-200 text-sm font-medium hover:bg-white/20 transition-all`}
-                    whileHover={{ scale: 1.1 }}
+                    className="px-4 py-2 rounded-lg bg-white/10 border border-white/10 text-gray-200 text-sm font-medium hover:bg-white/20 transition-all"
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     {skill}
