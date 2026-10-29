@@ -2,110 +2,114 @@
 
 import { motion } from "framer-motion";
 import { portfolioData } from "@/lib/portfolio-data";
-
-const skillCategories = [
-  {
-    name: "Languages",
-    skills: portfolioData.skills.languages,
-    color: "from-blue-500 to-cyan-500",
-    borderColor: "border-blue-500/30",
-  },
-  {
-    name: "Backend",
-    skills: portfolioData.skills.backend,
-    color: "from-purple-500 to-pink-500",
-    borderColor: "border-purple-500/30",
-  },
-  {
-    name: "Databases",
-    skills: portfolioData.skills.databases,
-    color: "from-green-500 to-emerald-500",
-    borderColor: "border-green-500/30",
-  },
-  {
-    name: "DevOps & Tools",
-    skills: portfolioData.skills.devops,
-    color: "from-orange-500 to-red-500",
-    borderColor: "border-orange-500/30",
-  },
-  {
-    name: "AI & ML",
-    skills: portfolioData.skills.ai_ml,
-    color: "from-indigo-500 to-purple-500",
-    borderColor: "border-indigo-500/30",
-  },
-  {
-    name: "Core CS",
-    skills: portfolioData.skills.coreCS,
-    color: "from-cyan-500 to-blue-500",
-    borderColor: "border-cyan-500/30",
-  },
-];
+import { Code2, Server, Database, Cpu, Sparkles, Layers } from "lucide-react";
 
 export function Skills() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+  const skillCategories = [
+    {
+      name: "Programming Languages",
+      icon: Code2,
+      skills: portfolioData.skills.languages,
+      gradient: "from-blue-500 to-cyan-500",
+      accent: "text-blue-400",
+      borderHover: "hover:border-blue-500/50",
     },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
+    {
+      name: "Backend Architecture",
+      icon: Server,
+      skills: portfolioData.skills.backend,
+      gradient: "from-purple-500 to-indigo-500",
+      accent: "text-purple-400",
+      borderHover: "hover:border-purple-500/50",
     },
-  };
+    {
+      name: "AI & Machine Learning",
+      icon: Sparkles,
+      skills: portfolioData.skills.ai_ml,
+      gradient: "from-pink-500 to-rose-500",
+      accent: "text-pink-400",
+      borderHover: "hover:border-pink-500/50",
+    },
+    {
+      name: "Databases & Storage",
+      icon: Database,
+      skills: portfolioData.skills.databases,
+      gradient: "from-emerald-500 to-teal-500",
+      accent: "text-emerald-400",
+      borderHover: "hover:border-emerald-500/50",
+    },
+    {
+      name: "DevOps & Tooling",
+      icon: Cpu,
+      skills: portfolioData.skills.devops,
+      gradient: "from-amber-500 to-orange-500",
+      accent: "text-amber-400",
+      borderHover: "hover:border-amber-500/50",
+    },
+    {
+      name: "Core Computer Science",
+      icon: Layers,
+      skills: portfolioData.skills.coreCS,
+      gradient: "from-cyan-500 to-blue-500",
+      accent: "text-cyan-400",
+      borderHover: "hover:border-cyan-500/50",
+    },
+  ];
 
   return (
-    <section id="skills" className="py-20 px-4 md:px-8">
+    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-6xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-16 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
-        >
-          Technical Skills
-        </motion.h2>
+        {/* Header */}
+        <div className="text-center mb-16">
+          <span className="text-xs uppercase tracking-widest font-semibold text-purple-400 bg-purple-500/10 px-3.5 py-1.5 rounded-full border border-purple-500/20">
+            Expertise
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4">
+            Technical Arsenal
+          </h2>
+          <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mt-3">
+            Core competencies developed through enterprise internships, hands-on production engineering, and academic rigor.
+          </p>
+        </div>
 
-        <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {skillCategories.map((category, idx) => (
-            <motion.div
-              key={idx}
-              className={`backdrop-blur-xl bg-white/5 border ${category.borderColor} rounded-2xl p-8 hover:border-white/40 transition-all group`}
-              variants={itemVariants}
-              whileHover={{ scale: 1.03 }}
-            >
-              <h3 className={`text-2xl font-bold mb-6 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
-                {category.name}
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {category.skills.map((skill, skillIdx) => (
-                  <motion.span
-                    key={skillIdx}
-                    className="px-4 py-2 rounded-lg bg-white/10 border border-white/10 text-gray-200 text-sm font-medium hover:bg-white/20 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* 6 Category Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories.map((category, idx) => {
+            const Icon = category.icon;
+            return (
+              <motion.div
+                key={idx}
+                whileHover={{ y: -5 }}
+                className={`p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl ${category.borderHover} transition-all duration-300 flex flex-col justify-between group shadow-lg`}
+              >
+                <div>
+                  <div className="flex items-center gap-3 mb-5">
+                    <div
+                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center shadow-md`}
+                    >
+                      <Icon size={20} className="text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white group-hover:text-slate-100 transition-colors">
+                      {category.name}
+                    </h3>
+                  </div>
+
+                  {/* Skills Pills */}
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="px-3 py-1.5 rounded-xl bg-slate-800/80 border border-white/5 text-xs font-medium text-slate-300 hover:text-white hover:border-white/20 hover:bg-slate-700/80 transition-all"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

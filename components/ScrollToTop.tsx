@@ -9,7 +9,7 @@ export function ScrollToTop() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 400);
+      setIsVisible(window.scrollY > 350);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -25,14 +25,15 @@ export function ScrollToTop() {
       {isVisible && (
         <motion.button
           onClick={scrollToTop}
-          initial={{ opacity: 0, scale: 0 }}
+          aria-label="Scroll to top"
+          initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
+          exit={{ opacity: 0, scale: 0.8 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white shadow-lg hover:shadow-blue-500/50 transition-all z-40"
+          className="fixed bottom-6 right-6 w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-xl shadow-blue-500/25 border border-white/20 hover:shadow-blue-500/40 transition-all z-40 cursor-pointer"
         >
-          <ArrowUp size={24} />
+          <ArrowUp size={20} />
         </motion.button>
       )}
     </AnimatePresence>

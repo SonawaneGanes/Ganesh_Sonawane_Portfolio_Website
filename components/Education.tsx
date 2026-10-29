@@ -1,140 +1,108 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, Trophy } from "lucide-react";
+import { GraduationCap, Award, CheckCircle2, Star } from "lucide-react";
 import { portfolioData } from "@/lib/portfolio-data";
 
 export function Education() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
-    <section id="education" className="py-20 px-4 md:px-8">
-      <div className="max-w-4xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-16 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
-        >
-          Education & Certifications
-        </motion.h2>
+    <section id="education" className="py-24 px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <span className="text-xs uppercase tracking-widest font-semibold text-indigo-400 bg-indigo-500/10 px-3.5 py-1.5 rounded-full border border-indigo-500/20">
+            Qualifications
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4">
+            Education & Certifications
+          </h2>
+          <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mt-3">
+            Formal computer engineering foundations combined with continuous industry specialization.
+          </p>
+        </div>
 
-        <motion.div
-          className="grid md:grid-cols-2 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {/* Education */}
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-              <BookOpen className="text-blue-400" size={28} />
-              Academic Background
-            </h3>
-            <motion.div className="space-y-6" variants={containerVariants}>
-              {portfolioData.education.map((edu) => (
-                <motion.div
-                  key={edu.id}
-                  className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all"
-                  variants={itemVariants}
+        <div className="grid lg:grid-cols-2 gap-8 mb-10">
+          {/* Academic Background Column */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                <GraduationCap size={22} />
+              </div>
+              <h3 className="text-2xl font-bold text-white">Academic Degrees</h3>
+            </div>
+
+            {portfolioData.education.map((edu) => (
+              <motion.div
+                key={edu.id}
+                whileHover={{ y: -3 }}
+                className="p-7 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-lg hover:border-blue-500/40 transition-all"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                  <h4 className="text-lg font-bold text-white">{edu.degree}</h4>
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 w-fit">
+                    {edu.period}
+                  </span>
+                </div>
+
+                <p className="text-sm font-medium text-slate-300 mb-4">
+                  {edu.institution}
+                </p>
+
+                <div className="flex flex-wrap gap-2 pt-3 border-t border-white/[0.08]">
+                  {edu.highlights.map((highlight, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 rounded-lg bg-slate-800 text-xs font-medium text-slate-300 border border-white/5"
+                    >
+                      {highlight}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Certifications & Industry Recognition Column */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                <Award size={22} />
+              </div>
+              <h3 className="text-2xl font-bold text-white">Verified Certifications</h3>
+            </div>
+
+            <div className="p-7 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-lg space-y-3.5">
+              {portfolioData.certifications.map((cert, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-slate-800/60 border border-white/5 hover:border-purple-500/30 transition-all"
                 >
-                  <h4 className="text-lg font-bold text-white mb-1">
-                    {edu.degree}
-                  </h4>
-                  <p className="text-blue-400 text-sm font-semibold mb-3">
-                    {edu.institution}
-                  </p>
-                  <p className="text-gray-400 text-sm mb-3">{edu.period}</p>
-                  <ul className="space-y-2">
-                    {edu.highlights.map((highlight, idx) => (
-                      <li
-                        key={idx}
-                        className="text-gray-300 text-sm flex items-center gap-2"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
+                  <CheckCircle2 size={18} className="text-emerald-400 flex-shrink-0" />
+                  <span className="text-sm font-medium text-slate-200">{cert}</span>
+                </div>
               ))}
-            </motion.div>
+            </div>
+          </div>
+        </div>
+
+        {/* Notable Achievements Banner */}
+        <div className="p-8 rounded-3xl bg-gradient-to-r from-blue-900/20 via-indigo-900/20 to-purple-900/20 border border-blue-500/30 backdrop-blur-xl shadow-2xl">
+          <div className="flex items-center gap-2.5 mb-4">
+            <Star className="text-amber-400 fill-amber-400" size={20} />
+            <h3 className="text-xl font-bold text-white">Key Achievements & Highlights</h3>
           </div>
 
-          {/* Certifications & Achievements */}
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-              <Trophy className="text-purple-400" size={28} />
-              Certifications & Achievements
-            </h3>
-
-            <motion.div className="space-y-6" variants={containerVariants}>
-              {/* Certifications */}
-              <motion.div
-                className="backdrop-blur-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-400/30 rounded-2xl p-6 hover:border-purple-400/50 transition-all"
-                variants={itemVariants}
+          <div className="grid sm:grid-cols-3 gap-4">
+            {portfolioData.achievements.map((item, idx) => (
+              <div
+                key={idx}
+                className="p-4 rounded-2xl bg-black/30 border border-white/10 text-xs sm:text-sm text-slate-300 leading-relaxed"
               >
-                <h4 className="text-lg font-bold text-purple-400 mb-4">
-                  Certifications
-                </h4>
-                <ul className="space-y-3">
-                  {portfolioData.certifications.map((cert, idx) => (
-                    <li
-                      key={idx}
-                      className="text-gray-300 text-sm flex items-start gap-2"
-                    >
-                      <span className="text-purple-400 mt-1 flex-shrink-0">
-                        ✓
-                      </span>
-                      <span>{cert}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-
-              {/* Achievements */}
-              <motion.div
-                className="backdrop-blur-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-400/30 rounded-2xl p-6 hover:border-blue-400/50 transition-all"
-                variants={itemVariants}
-              >
-                <h4 className="text-lg font-bold text-blue-400 mb-4">
-                  Achievements
-                </h4>
-                <ul className="space-y-3">
-                  {portfolioData.achievements.map((achievement, idx) => (
-                    <li
-                      key={idx}
-                      className="text-gray-300 text-sm flex items-start gap-2"
-                    >
-                      <span className="text-blue-400 mt-1 flex-shrink-0">
-                        ★
-                      </span>
-                      <span>{achievement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </motion.div>
+                {item}
+              </div>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

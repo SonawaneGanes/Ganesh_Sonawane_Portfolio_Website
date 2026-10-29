@@ -2,68 +2,39 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Code2, Briefcase } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { portfolioData } from "@/lib/portfolio-data";
 
 export function Contact() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState<string>("Ready to send");
 
   const contactMethods = [
     {
       icon: Mail,
-      label: "Email",
+      label: "Email Address",
       value: portfolioData.personal.email,
       href: `mailto:${portfolioData.personal.email}`,
-      color: "from-blue-500 to-cyan-500",
+      color: "from-blue-600 to-cyan-600",
+      accent: "text-blue-400",
     },
     {
       icon: Phone,
-      label: "Phone",
+      label: "Phone / WhatsApp",
       value: portfolioData.personal.phone,
       href: `tel:${portfolioData.personal.phone}`,
-      color: "from-purple-500 to-pink-500",
+      color: "from-purple-600 to-indigo-600",
+      accent: "text-purple-400",
     },
     {
       icon: MapPin,
-      label: "Location",
+      label: "Current Location",
       value: portfolioData.personal.location,
-      href: "#",
-      color: "from-orange-500 to-red-500",
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: Code2,
-      label: "GitHub",
-      href: portfolioData.personal.github,
-      color: "from-gray-600 to-gray-800",
-    },
-    {
-      icon: Briefcase,
-      label: "LinkedIn",
-      href: portfolioData.personal.linkedin,
-      color: "from-blue-600 to-blue-800",
+      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        portfolioData.personal.location
+      )}`,
+      color: "from-emerald-600 to-teal-600",
+      accent: "text-emerald-400",
     },
   ];
 
@@ -95,7 +66,7 @@ export function Contact() {
         }
       }
 
-      // If on Netlify (Netlify Forms AJAX support)
+      // If running on Netlify
       const isNetlify = typeof window !== "undefined" && window.location.hostname.includes("netlify");
       if (isNetlify) {
         const encodedBody = new URLSearchParams({
@@ -119,17 +90,16 @@ export function Contact() {
         }
       }
 
-      // Fallback: Open mailto client directly with prefilled details
+      // Automatic fallback: mailto client
       const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
       const body = encodeURIComponent(`Hi Ganesh,\n\n${message}\n\nFrom: ${name} (${email})`);
       window.location.href = `mailto:${portfolioData.personal.email}?subject=${subject}&body=${body}`;
 
       setStatus("success");
-      setStatusMessage("Opening your email client to send message...");
+      setStatusMessage("Opening email client with pre-filled message...");
       form.reset();
     } catch (err) {
-      console.error("Submission error:", err);
-      // Graceful mailto fallback on network/fetch error
+      console.error("Form submission error:", err);
       const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
       const body = encodeURIComponent(`Hi Ganesh,\n\n${message}\n\nFrom: ${name} (${email})`);
       window.location.href = `mailto:${portfolioData.personal.email}?subject=${subject}&body=${body}`;
@@ -140,169 +110,175 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 md:px-8 relative">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-      </div>
+    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <span className="text-xs uppercase tracking-widest font-semibold text-blue-400 bg-blue-500/10 px-3.5 py-1.5 rounded-full border border-blue-500/20">
+            Get In Touch
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4">
+            Let&apos;s Build Together
+          </h2>
+          <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mt-3">
+            Open to full-time AI/ML and Backend Engineering roles, high-impact projects, and collaborations.
+          </p>
+        </div>
 
-      <div className="max-w-4xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-12 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent text-center"
-        >
-          Let&apos;s Connect
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-center text-gray-400 mb-16 text-lg"
-        >
-          Open to opportunities with innovative companies. Let&apos;s build something amazing together!
-        </motion.p>
-
-        <motion.div
-          className="grid md:grid-cols-3 gap-6 mb-12"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        {/* 3 Contact Info Cards */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
           {contactMethods.map((method, index) => {
-            const IconComponent = method.icon;
+            const Icon = method.icon;
             return (
-              <motion.a
+              <a
                 key={index}
                 href={method.href}
-                className="group relative"
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${method.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300`}></div>
-
-                <div className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all text-center">
-                  <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${method.color} flex items-center justify-center mx-auto mb-4`}>
-                    <IconComponent size={32} className="text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    {method.label}
-                  </h3>
-                  <p className="text-gray-300 break-all">{method.value}</p>
-                </div>
-              </motion.a>
-            );
-          })}
-        </motion.div>
-
-        <motion.div
-          className="flex justify-center gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {socialLinks.map((link, index) => {
-            const IconComponent = link.icon;
-            return (
-              <motion.a
-                key={index}
-                href={link.href}
-                target="_blank"
+                target={method.label.includes("Location") ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                aria-label={link.label}
-                className="group relative"
-                variants={itemVariants}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+                className="p-6 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl hover:border-blue-500/40 transition-all text-center group shadow-lg hover:-translate-y-1"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${link.color} rounded-full blur-lg opacity-0 group-hover:opacity-75 transition-opacity duration-300`}></div>
-
-                <div className={`relative w-14 h-14 rounded-full bg-gradient-to-br ${link.color} flex items-center justify-center border border-white/20 hover:border-white/50 transition-all`}>
-                  <IconComponent size={24} className="text-white" />
+                <div
+                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${method.color} flex items-center justify-center mx-auto mb-4 shadow-md group-hover:scale-110 transition-transform`}
+                >
+                  <Icon size={22} className="text-white" />
                 </div>
-              </motion.a>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                  {method.label}
+                </h3>
+                <p className="text-sm sm:text-base font-bold text-white group-hover:text-blue-300 transition-colors break-all">
+                  {method.value}
+                </p>
+              </a>
             );
           })}
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="max-w-2xl mx-auto mt-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
+        {/* Form Container */}
+        <div className="p-8 sm:p-10 rounded-3xl bg-slate-900/70 border border-white/10 backdrop-blur-2xl shadow-2xl max-w-3xl mx-auto">
           <form
             name="contact"
             method="POST"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
-            className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md"
+            className="space-y-5"
           >
-            {/* Netlify hidden input */}
+            {/* Hidden honeypot input */}
             <input type="hidden" name="form-name" value="contact" />
-            <p className="hidden">
-              <label>Don&apos;t fill this out if you&apos;re human: <input name="bot-field" /></label>
+            <p hidden style={{ display: "none" }}>
+              <label>
+                Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
+              </label>
             </p>
 
-            <h3 className="text-2xl font-semibold text-white mb-4 text-center">Send a message</h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                  Your Name
+                </label>
+                <input
+                  name="name"
+                  type="text"
+                  placeholder="e.g. Rahul Sharma"
+                  required
+                  className="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                />
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                name="name"
-                placeholder="Your name"
-                required
-                className="p-3 rounded-md bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
-              />
-              <input
-                name="email"
-                type="email"
-                placeholder="Your email"
-                required
-                className="p-3 rounded-md bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
-              />
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                  Your Email
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="e.g. rahul@company.com"
+                  required
+                  className="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                />
+              </div>
             </div>
 
-            <textarea
-              name="message"
-              placeholder="Your message"
-              required
-              rows={5}
-              className="w-full mt-4 p-3 rounded-md bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
-            ></textarea>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                Message
+              </label>
+              <textarea
+                name="message"
+                placeholder="Share your opportunity or project details..."
+                required
+                rows={5}
+                className="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"
+              ></textarea>
+            </div>
 
-            <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-md bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 transition-all cursor-pointer"
               >
+                <Send size={16} />
                 {status === "loading" ? "Sending..." : "Send Message"}
               </button>
 
-              <div className="text-sm text-gray-300 text-center sm:text-right">
-                {statusMessage}
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                {status === "success" && (
+                  <CheckCircle2 size={16} className="text-emerald-400" />
+                )}
+                {status === "error" && (
+                  <AlertCircle size={16} className="text-rose-400" />
+                )}
+                <span>{statusMessage}</span>
               </div>
             </div>
           </form>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="text-center mt-10"
-        >
-          <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} Ganesh Sonawane. All rights reserved.
+        {/* Social Links Bar */}
+        <div className="flex justify-center items-center gap-4 mt-12">
+          {/* GitHub */}
+          <a
+            href={portfolioData.personal.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+            className="p-3 rounded-2xl bg-slate-900/60 border border-white/10 text-slate-300 hover:text-white hover:border-blue-400 hover:scale-110 transition-all shadow-md"
+          >
+            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+          </a>
+
+          {/* LinkedIn */}
+          <a
+            href={portfolioData.personal.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
+            className="p-3 rounded-2xl bg-slate-900/60 border border-white/10 text-blue-400 hover:text-blue-300 hover:border-blue-400 hover:scale-110 transition-all shadow-md"
+          >
+            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+          </a>
+
+          {/* Email */}
+          <a
+            href={`mailto:${portfolioData.personal.email}`}
+            aria-label="Send Email"
+            className="p-3 rounded-2xl bg-slate-900/60 border border-white/10 text-emerald-400 hover:text-emerald-300 hover:border-emerald-400 hover:scale-110 transition-all shadow-md"
+          >
+            <Mail size={20} />
+          </a>
+        </div>
+
+        {/* Footer Copyright */}
+        <div className="text-center mt-12 pt-8 border-t border-white/[0.08]">
+          <p className="text-xs text-slate-500">
+            © {new Date().getFullYear()} {portfolioData.personal.name}. Built with Next.js, React 19 & Tailwind CSS.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "preview": "npx serve out -l 3000",
     "start": "next start",
     "lint": "eslint ."
   },

@@ -10,7 +10,7 @@ export const portfolioData = {
     resumeUrl: "/Ganesh_Sonawane_Resume.pdf",
   },
   about:
-    "B.Tech Computer Engineering graduate (CGPA: 8.34/10, Batch 2025) specializing in backend development, AI/ML integration, and enterprise application architecture. Proficient in Java, Python, and full SDLC. Experienced in building scalable REST APIs, microservices, and AI-powered applications with strong DevOps foundation using Docker, CI/CD, and Git.",
+    "B.Tech Computer Engineering graduate (CGPA: 6.81/10, Batch 2025) specializing in backend development, AI/ML integration, and enterprise application architecture. Proficient in Java, Python, and full SDLC. Experienced in building scalable REST APIs, microservices, and AI-powered applications with strong DevOps foundation using Docker, CI/CD, and Git.",
   skills: {
     languages: ["Java", "Python", "C++", "Node.js", "JavaScript"],
     backend: [
@@ -43,7 +43,7 @@ export const portfolioData = {
       company: "Blue Planet Info Solution Pvt. Ltd.",
       position: "AI-ML Developer Intern",
       location: "Pune",
-      period: "Oct 2025 – Present",
+      period: "Oct 2025 – April 2026",
       highlights: [
         "Designed and developed backend REST APIs using Python (Flask/FastAPI) with OOP principles and modular design",
         "Applied full SDLC practices from requirements to deployment with Git and Docker containerization",
@@ -143,7 +143,7 @@ export const portfolioData = {
       institution: "Dr. Babasaheb Ambedkar Technological University",
       degree: "B.Tech in Computer Engineering",
       period: "2022 – 2025",
-      highlights: ["CGPA: 8.34/10", "No Active Backlogs", "Batch 2025"],
+      highlights: ["CGPA: 6.81/10", "No Active Backlogs", "Batch 2025"],
     },
     {
       id: 2,
@@ -168,7 +168,7 @@ export const portfolioData = {
   ],
   stats: {
     projectsCompleted: 4,
-    yearsExperience: 1,
+    experienceDuration: "8 Months",
     internships: 2,
     certifications: 5,
   },
